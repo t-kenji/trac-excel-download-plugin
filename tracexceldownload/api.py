@@ -188,7 +188,10 @@ class AbstractWorksheetWriter(object):
         value = '\n'.join(line.rstrip() for line in value.splitlines())
         if len(value) > self.MAX_CHARS:
             value = value[:self.MAX_CHARS - 1] + u'\u2026'
-        return value
+        try:
+            return float(value)
+        except:
+            return value
 
 
 class OpenpyxlWorkbookWriter(AbstractWorkbookWriter):
