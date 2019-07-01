@@ -132,6 +132,10 @@ class AbstractWorkbookWriter(object):
             return 0, 1
         if isinstance(value, str):
             value = to_unicode(value)
+        elif isinstance(value, float):
+            if value.is_integer():
+                value = int(value)
+            value = to_unicode(str(value))
         if value not in self._metrics_cache:
             lines = value.splitlines()
             doubles = ('WFA', 'WF')[self.ambiwidth == 1]
